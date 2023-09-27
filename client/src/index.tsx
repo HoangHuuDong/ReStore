@@ -10,12 +10,15 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './app/router/Routes';
 import { Provider } from 'react-redux';
 import { store } from './app/store/configureStore';
+import { StoreProvider } from './app/context/StoreContext';
 
 
 ReactDOM.render(  
   <React.StrictMode>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <StoreProvider>
+          <RouterProvider router={router} />
+        </StoreProvider>
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')
