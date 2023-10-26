@@ -1,18 +1,16 @@
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, Typography, Grid } from "@mui/material";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import agent from "../../app/api/agent";
 import LoadingComponent from "../../app/layout/LoadingComponent";
 import { Order, OrderItem } from "../../app/models/order";
 import { currencyFormat } from "../../app/util/util";
 import BasketTable from "../basket/BasketTable";
-import { useAppSelector } from "../../app/store/configureStore";
 import BasketSummary from "../basket/BasketSummary";
 
 export default function Orders() {
     const [orders, setOrders] = useState<Order[] | null>(null)
     const [loading, setLoading] = useState(true)
     const [isShowDetail, setShowDetail] = useState(false)
-    const { basket } = useAppSelector((state) => state.basket)
     const [orderDetail, setOrderDetail] = useState<OrderItem[] | null>(null)
     const [orderId, setOrderId] = useState<number>()
     const [orderStatus, setOrderStatus] = useState<string>()
@@ -27,8 +25,6 @@ export default function Orders() {
 
     if (loading) return <LoadingComponent message="Loading orders..." />
 
-    if (!basket) return <Typography variant='h3'>Your basket is empty</Typography>
-
     const handleShowDetail = (order: any) => {
         setOrderDetail(order.orderItems)
         setOrderId(order.id)
@@ -37,7 +33,6 @@ export default function Orders() {
     }
 
     const handleBack = () => {
-        console.log('hello')
         setShowDetail(false)
     }
 
